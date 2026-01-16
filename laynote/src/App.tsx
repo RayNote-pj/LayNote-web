@@ -13,6 +13,8 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./views/login/Login";
 import SignUp from "./views/signup/SignUp";
 import NoteProjectList from "./views/note-project/NoteProjectList";
+import TrashNote from "./views/trash/TrashNote";
+import MyPage from "./views/my-page/MyPage";
 
 function App() {
   interface TokenUser {
@@ -48,6 +50,8 @@ function App() {
               <MainContainer>
                 <Routes>
                   <Route path="/" element={<NoteProjectList/>} />
+                  <Route path="/trash" element={<TrashNote/>} />
+                  <Route path="/my-page" element={<MyPage/>} />
                 </Routes>
               </MainContainer>
             </>

@@ -49,6 +49,11 @@ export interface NoteProjectDto {
   noteProjectImageUrl: string;
   noteProjectTitle: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
   deletedAt: string;
+}
+export interface NoteProjectReqestDto {
+  noteProjectImageUrl: string;
+  noteProjectTitle: string;
+
 }

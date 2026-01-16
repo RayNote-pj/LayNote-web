@@ -123,7 +123,7 @@ function Login() {
           <button
             type="submit"
             onClick={fetchData}
-            onMouseDown={fetchData}
+            onKeyDown={fetchData}
             css={s.loginBtn}
           >
             Login

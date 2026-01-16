@@ -11,6 +11,9 @@ export const NOTE_IMAGE_BOX_PATH = "note-image-box";
 export const NOTE_LIST_PATH = "/note-list";
 export const NOTE_LIST_ITEM_PATH = "/note-list-item";
 
+//Image
+export const IMG_PATH = "http://localhost:4040/image";
+
 // auth
 export const SIGN_UP = "/sign-up";
 export const LOGIN = "/login";
@@ -21,3 +24,10 @@ export const USER_INFO = "/my-page";
 
 // noteProject
 export const NOTE_PROJECT_ALL = "/all";
+export const NOTE_PROJECT_CREATE = "/create";
+export const NOTE_PROJECT_UPDATE_TITLE = "/update/title";
+export const NOTE_PROJECT_UPDATE_IMAGE = "/update/image";
+export const NOTE_PROJECT_DELETE = "/delete";
+export const NOTE_PROJECT_TRASH = "/waste-basket";
+export const NOTE_PROJECT_DELETE_DATE = "/deleteAt";
+export const NOTE_PROJECT_COMPLETE_DELETE = "/complete-delete";

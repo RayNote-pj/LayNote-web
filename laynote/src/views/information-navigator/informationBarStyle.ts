@@ -4,7 +4,7 @@ export const divBackground = css`
   background-color: white;
   width: 100vw;
   height: 5vh;
-  border-bottom: 2px solid #919191ff;
+  border-bottom: 1px solid #919191ff;
   display: flex;
   align-items: center;
 `;
