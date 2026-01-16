@@ -19,11 +19,6 @@ function InformationBar() {
   const navigate = useNavigate();
 
   const fetchData = async() => {
-    if (!cookies.token) {
-      alert("로그인이 필요합니다.");
-      navigate("/login");
-    }
-
     try {
       const response = await axios.get(`${MAIN_APT_PATH}${USER_PATH}${USER_INFO}`,
         {
@@ -56,7 +51,7 @@ function InformationBar() {
   return (
     <div css={s.divBackground}>
       <div css={s.imformationContainer}>
-        <div css={s.logoDiv}>
+        <div css={s.logoDiv} onClick={() => navigate("/")}>
           <img
             css={s.logoImg}
             src="/lay-note-logo/laynote_image_logo.png"

@@ -1,18 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 /** @jsxImportSource @emotion/react */
-import * as s from './noteProjectBarStyle' 
+import * as s from './noteProjectBarStyle'
+import { IoDuplicateOutline } from "react-icons/io5";
+import axios from 'axios';
+import { MAIN_APT_PATH, NOTE_PROJECT_CREATE, NOTE_PROJECT_PATH } from '../../apis/apis';
+import { NoteProjectReqestDto } from '../../types/dto';
+import { useCookies } from 'react-cookie';
+import { VscTrash } from "react-icons/vsc";
+import { useNavigate } from 'react-router-dom';
+
+
 
 function NoteProjectBar() {
+  const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  const fetchData = async() => {
+    try{
+      await axios.post(`${MAIN_APT_PATH}${NOTE_PROJECT_PATH}${NOTE_PROJECT_CREATE}`, null ,{
+        headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+      });
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div css = {s.barBackground}>
-      <div css = {s.noteProjectUserImgDiv}>
-          <img src="" alt="이미지" />
+      <div css={s.createNoteBtnDiv}>
+        <button css = {s.createNoteBtn} onClick={fetchData}><IoDuplicateOutline /></button>
+        <span css={s.createNoteBtnSpan}>New</span>
       </div>
       <div css = {s.noteProjectBarLine}></div>
-      <button css = {s.createNoteBtn}>노트생성</button>
-      <div css = {s.noteProjectBarLine}></div>
       <div css = {s.likeNoteDiv}>
-        <span>즐겨찾기</span>
+        <span css={s.bookMarkSpan}>Book Mark_</span>
         <div css = {s.likeNotListeDiv}>
           <div css = {s.likeNoteColumnDiv}>
             <div css = {s.likeNoteThumNailDiv}>
@@ -24,6 +48,7 @@ function NoteProjectBar() {
           </div>
         </div>
       </div>
+      <VscTrash  onClick={() => navigate('/trash')}/>
     </div>
   )
 }

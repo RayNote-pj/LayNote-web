@@ -12,10 +12,16 @@ export const notePageTitleDiv = css`
   height: 108px;
 `
 export const notePageTitleLine = css`
-  width: 250px;
+  width: 270px;
   border: 1px solid #858484;
   border-radius: 0px 2px 2px 0px;
   margin-top: 5px;
+`
+export const noticSpan = css`
+  width: 260px;
+  font-size: 12px;
+  color: #424242;
+  text-align: right;
 `
 export const notePageTitleSpan = css`
   padding-left: 130px;
@@ -24,7 +30,7 @@ export const notePageTitleSpan = css`
   font-weight: 700;
 `
 export const noteProjectContainer = css`
-  width: 1291px;
+  width: 1130px;
   display: flex;
   flex-wrap: wrap;
   margin: 60px auto;
@@ -38,11 +44,11 @@ export const noteProjectDiv = css`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: 40px;
+  margin: 20px;
 `
 export const noteProjectImgDiv = css`
   width: 100%;
-  height: 65%;
+  height: 122px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,7 +65,7 @@ export const noteProjectTitleDiv = css`
   flex-direction: column;
   box-sizing: border-box;
   `
-export const noteProjectTitleInput = css`
+export const noteProjectTitleSpan = css`
   font-family: 'YesMyungjo';
   font-size: 12px;
   font-weight: 500;
@@ -80,14 +86,15 @@ export const noteProjectDateSpan = css`
   color: #bebebe;
   margin-top: 1px;
 `
-export const dateSpanDiv = css`
-  display: flex;
-  flex-direction: column;
-`
 export const noteProjectContentDiv = css`
   width: 100%;
   display: flex;
   justify-content: space-between;
+`
+export const fake = css`
+  width: 50px;
+  height: 20px;
+  border: 1px solid #ddd;
 `
 export const noteProjectImgBtnDiv = css`
   font-size: 30px;
@@ -108,6 +115,7 @@ export const bookMarkDiv = css`
   align-items: center;
   padding: 3px 10px;
   box-sizing: border-box;
+  height: 32px;
 `
 export const updateMg = css`
   display: flex;
