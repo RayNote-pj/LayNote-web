@@ -134,7 +134,7 @@ function NoteProjectList() {
         <div css={s.notePageTitleLine}></div>
       </div>
       <div css={s.noteProjectContainer}>
-        {noteData.map((note) => (
+        {noteData.map((note, index) => (
           <div css={s.noteProjectDiv} key={note.noteProjectId}>
             <div css={s.bookMarkDiv}>
               {isBookMark ? (
@@ -188,10 +188,10 @@ function NoteProjectList() {
                   </span>
                 </div>
                 <div css={s.noteProjectImgBtnDiv}>
-                  <label htmlFor="image-upload">
+                  <label htmlFor={`image-upload-${note.noteProjectId}`}>
                     <CiImageOn />
                     <input
-                      id="image-upload"
+                      id={`image-upload-${note.noteProjectId}`}
                       type="file"
                       style={{ display: "none" }}
                       onChange={(e) => {
