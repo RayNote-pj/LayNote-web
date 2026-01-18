@@ -41,12 +41,12 @@ function InformationModal() {
     <div css={s.informationModalContianer}>
       <div css={s.informationModalInfoBox}>
       <div css={s.informationModalinfoDiv}>
-      <span css={s.informationModalNickNameSpan}>{data?.nickName}0000000000</span>
+      <span css={s.informationModalNickNameSpan}>{data?.nickName}</span>
       <span css={s.informationModalEmailSpan}>{data?.userEmail}</span>
       </div>
       <div css={s.informationModalBtnDiv}>
         <button css={s.informationModalBtn}>logout</button>
-        <button css={s.informationModalMypageBtn}>mypage</button>
+        <button css={s.informationModalMypageBtn} onClick={() => navigate("/my-page")}>mypage</button>
       </div>
       </div>
       <div css={s.informationModlaImgDiv}>

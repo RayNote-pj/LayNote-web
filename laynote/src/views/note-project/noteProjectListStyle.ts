@@ -5,6 +5,13 @@ export const noteProjectBackground = css`
   height: 100%;
   overflow-y: auto;
 `
+export const ioIosClose = css`
+  transition: transform 0.2s ease-in-out;
+  :hover {
+    cursor: pointer;
+    transform: scale(1.5);
+  }
+`
 export const notePageTitleDiv = css`
   display: flex;
   flex-direction: column;
@@ -28,7 +35,6 @@ export const noteProjectContainer = css`
   display: flex;
   flex-wrap: wrap;
   margin: 60px auto;
-  /* border: 1px solid #333; */
   `
 export const noteProjectDiv = css`
   width: 240px;
@@ -51,6 +57,10 @@ export const noteProjectImgDiv = css`
 `
 export const noteProjectImg = css`
   width: 100%;
+  transition: transform 0.2s ease-in-out;
+  :hover {
+    transform: scale(1.2);
+  }
 `
 export const noteProjectTitleDiv = css`
   width: 100%;
@@ -94,13 +104,16 @@ export const noteProjectImgBtnDiv = css`
   transition: transform 0.2s ease-in-out;
   :hover {
     cursor: pointer;
-  }
-  :active {
     transform: scale(1.2);
   }
 `
 export const bookMark = css`
   font-size: 20px;
+  transition: transform 0.2s ease-in-out;
+  :hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
   `
 export const bookMarkDiv = css`
   display: flex;

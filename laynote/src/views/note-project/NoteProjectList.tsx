@@ -147,6 +147,7 @@ function NoteProjectList() {
                 </div>
               )}
               <IoIosClose
+                css={s.ioIosClose}
                 size={20}
                 onClick={(e) => {
                   e.stopPropagation();

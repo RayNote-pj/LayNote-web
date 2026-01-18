@@ -14,7 +14,7 @@ import Login from "./views/login/Login";
 import SignUp from "./views/signup/SignUp";
 import NoteProjectList from "./views/note-project/NoteProjectList";
 import TrashNote from "./views/trash/TrashNote";
-import MyPage from "./views/my-page/MyPage";
+import MyPage from "./views/my-page/UserInfoPage";
 
 function App() {
   interface TokenUser {
@@ -40,7 +40,6 @@ function App() {
   }, [cookies.token, login, logout]);
 
   return (
-    <div>
       <RootLayout>
         <InformationBar />
         <RootContainer>
@@ -66,7 +65,6 @@ function App() {
             }
         </RootContainer>
       </RootLayout>
-    </div>
   );
 }
 

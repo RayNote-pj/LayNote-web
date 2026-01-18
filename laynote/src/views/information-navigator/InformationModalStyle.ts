@@ -11,7 +11,7 @@ export const informationModalContianer = css`
   right: 10px;
   top: 5vh;
   z-index: 10;
-  border-top: 2px solid #919191ff;
+  border-top: 1px solid #919191ff;
   padding: 15px 35px;
   box-sizing: border-box;
   box-shadow: 2px 2px 5px 0.01px #e2e2e2ff;
