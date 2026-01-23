@@ -54,6 +54,9 @@ export const noteProjectImgDiv = css`
   justify-content: center;
   background-color: #eee;
   overflow: hidden;
+  :hover {
+    cursor: pointer;
+  }
 `
 export const noteProjectImg = css`
   width: 100%;
@@ -86,8 +89,8 @@ export const noteProjectTitleInput = css`
 `
 export const noteProjectDateSpan = css`
   font-family: 'YesMyungjo';
-  font-size: 12px;
-  color: #bebebe;
+  font-size: 11px;
+  color: #7a7a7a;
   margin-top: 1px;
 `
 export const dateSpanDiv = css`

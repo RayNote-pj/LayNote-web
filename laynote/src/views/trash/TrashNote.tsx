@@ -6,6 +6,7 @@ import axios from "axios";
 import {
   IMG_PATH,
   MAIN_APT_PATH,
+  NOTE_PROJECT_COMPLETE_DELETE,
   NOTE_PROJECT_DELETE_DATE,
   NOTE_PROJECT_PATH,
   NOTE_PROJECT_TRASH,
@@ -52,15 +53,14 @@ function TrashNote() {
       console.error(error);
     }
   };
-  const delteNoteProject = async (noteProjectId: string) => {
+  const deleteNoteProject = async (noteProjectId: string) => {
     const isConfirm = window.confirm(
       "삭제된 데이터는 복구할 수 없습니다.정말 삭제하시겠습니까?"
     );
     if (!isConfirm) return;
     try {
-      await axios.put(
-        `${MAIN_APT_PATH}${NOTE_PROJECT_PATH}${NOTE_PROJECT_TRASH}/${noteProjectId}${NOTE_PROJECT_DELETE_DATE}`,
-        {},
+      await axios.delete(
+        `${MAIN_APT_PATH}${NOTE_PROJECT_PATH}/${noteProjectId}${NOTE_PROJECT_COMPLETE_DELETE}`,
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -99,7 +99,7 @@ function TrashNote() {
                   size={20}
                   onClick={(e) => {
                     e.stopPropagation();
-                    delteNoteProject(note.noteProjectId);
+                    deleteNoteProject(note.noteProjectId);
                   }}
                 />
               </div>

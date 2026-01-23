@@ -30,14 +30,17 @@ export const logoText = css`
 `
 
 export const topInfoImage = css`
-  width: 100%;
+  width: 120%;
 `
 export const topInfoImageDiv = css`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: 0.5px solid #333;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const topInfoDiv = css`
@@ -50,7 +53,7 @@ export const topInfoDiv = css`
 
 export const topInfoNickDiv = css`
   width: 120px;
-  text-align: left;
+  margin-left: 10px;
 `
 
 export const topInfoNickSpan = css`
