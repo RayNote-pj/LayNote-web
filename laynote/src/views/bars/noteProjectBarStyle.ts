@@ -6,8 +6,15 @@ export const barBackground = css`
   height: 100%;  
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   border-right: 2px solid #cccccc;
+`
+export const barDiv = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `
 export const createNoteBtnDiv = css`
   height: 50px;
@@ -73,6 +80,10 @@ export const likeNoteThumNailDiv = css`
   overflow: hidden;
   border-radius: 3px;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bebebe;
 `
 export const likeNoteTitleDiv = css`
   margin: 0px auto;
@@ -83,4 +94,11 @@ export const likeNoteTitleDiv = css`
 `
 export const likeNoteTitleSpan = css`
   font-size: 10px;
+`
+export const trashBtnDiv = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  margin-bottom: 25px;
 `

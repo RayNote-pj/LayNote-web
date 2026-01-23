@@ -10,3 +10,4 @@ export interface User {
   snsId: string | null;
   joinPath: string;
 }
+

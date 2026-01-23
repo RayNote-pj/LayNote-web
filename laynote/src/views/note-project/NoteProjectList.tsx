@@ -1,49 +1,39 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./noteProjectListStyle";
 import React, { useEffect, useState } from "react";
-import { NoteProjectDto, NoteProjectReqestDto } from "../../types/dto";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import {
   IMG_PATH,
   MAIN_APT_PATH,
-  NOTE_PROJECT_ALL,
   NOTE_PROJECT_DELETE,
   NOTE_PROJECT_PATH,
+  NOTE_PROJECT_PIN,
+  NOTE_PROJECT_PIN_DELETE,
+  NOTE_PROJECT_PIN_POST,
   NOTE_PROJECT_UPDATE_IMAGE,
   NOTE_PROJECT_UPDATE_TITLE,
 } from "../../apis/apis";
-import { CiImageOn } from "react-icons/ci";
+import { CiImageOff, CiImageOn, CiUser } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { useNoteProjectStore } from "../../stores/noteProject.store";
+import { useNoteProjectPintStore } from "../../stores/noteProjectPin.store";
 
 function NoteProjectList() {
   const [cookies] = useCookies(["token"]);
-  const [isBookMark, setIsBookMark] = useState<boolean>(false);
-  const [noteData, setNoteData] = useState<NoteProjectDto[]>([]);
+  const { notes, fetchNotes } = useNoteProjectStore();
+  const { pins, fetchPins } = useNoteProjectPintStore();
   const [updateComplete, setUpdateComplete] = useState<string | null>(null);
   const [title, setTitle] = useState<string>("");
-  const [image, setImage] = useState<string>("");
+  const navigate = useNavigate();
 
-  const getFetchData = async () => {
-    try {
-      const response = await axios.get(
-        `${MAIN_APT_PATH}${NOTE_PROJECT_PATH}${NOTE_PROJECT_ALL}`,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-          withCredentials: true,
-        }
-      );
-      setNoteData(response.data.data.noteProjects);
-    } catch (error) {
-      console.error(error);
-    }
+  const isPinned = (noteProjectId: string) => {
+    return pins.some((pin) => pin.noteProjectId === noteProjectId);
   };
-
   const updateTitleFetchData = async (noteProjectId: string) => {
     try {
       await axios.put(
@@ -56,11 +46,52 @@ function NoteProjectList() {
           withCredentials: true,
         }
       );
-      getFetchData();
     } catch (error) {
       console.error(error);
     }
   };
+
+  const createPin = async (noteProjectId: string) => {
+    try {
+      await axios.post(
+        `${MAIN_APT_PATH}${NOTE_PROJECT_PIN}/${noteProjectId}${NOTE_PROJECT_PIN_POST}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${cookies.token}` },
+          withCredentials: true,
+        }
+      );
+      fetchPins(cookies.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getPinIdByNoteProjectId = (noteProjectId: string): string | undefined =>
+    pins.find((pin) => pin.noteProjectId === noteProjectId)?.pinId;
+
+  const cancelPin = async (noteProjectId: string) => {
+    if (!cookies.token) return;
+
+    const pinId = getPinIdByNoteProjectId(noteProjectId);
+    if (!pinId) return;
+    try {
+      await axios.delete(
+        `${MAIN_APT_PATH}${NOTE_PROJECT_PIN}/${pinId}${NOTE_PROJECT_PIN_DELETE}`,
+        {
+          headers: { Authorization: `Bearer ${cookies.token}` },
+          withCredentials: true,
+        }
+      );
+      fetchPins(cookies.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes(cookies.token);
+  }, []);
 
   const updateImageFetchData = async (noteProjectId: string, file: File) => {
     try {
@@ -77,8 +108,7 @@ function NoteProjectList() {
           withCredentials: true,
         }
       );
-
-      getFetchData();
+      fetchNotes(cookies.token);
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +128,7 @@ function NoteProjectList() {
           withCredentials: true,
         }
       );
-      getFetchData();
+      fetchNotes(cookies.token);
     } catch (error) {
       console.error(error);
     }
@@ -123,10 +153,6 @@ function NoteProjectList() {
     setTitle(e.target.value);
   };
 
-  useEffect(() => {
-    getFetchData();
-  }, []);
-
   return (
     <div css={s.noteProjectBackground}>
       <div css={s.notePageTitleDiv}>
@@ -134,19 +160,26 @@ function NoteProjectList() {
         <div css={s.notePageTitleLine}></div>
       </div>
       <div css={s.noteProjectContainer}>
-        {noteData.map((note, index) => (
+        {notes.map((note, index) => (
           <div css={s.noteProjectDiv} key={note.noteProjectId}>
             <div css={s.bookMarkDiv}>
-              {isBookMark ? (
-                <div css={s.bookMark}>
-                  <FaBookmark />
+              {isPinned(note.noteProjectId) ? (
+                <div
+                  css={s.bookMark}
+                  onClick={() => cancelPin(note.noteProjectId)}
+                >
+                  <FaBookmark color="rgb(111, 158, 127)"/>
                 </div>
               ) : (
-                <div css={s.bookMark}>
-                  <FaRegBookmark />
+                <div
+                  css={s.bookMark}
+                  onClick={() => createPin(note.noteProjectId)}
+                >
+                  <FaRegBookmark color="rgb(111, 158, 127)"/>
                 </div>
               )}
               <IoIosClose
+                css={s.ioIosClose}
                 size={20}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -154,12 +187,16 @@ function NoteProjectList() {
                 }}
               />
             </div>
-            <div css={s.noteProjectImgDiv}>
-              <img
-                css={s.noteProjectImg}
-                src={`${IMG_PATH}/${note.noteProjectImageUrl}`}
-                alt={note.noteProjectImageUrl}
-              />
+            <div css={s.noteProjectImgDiv} onClick={() => navigate(`/note/${note.noteProjectId}`)}>
+              {note.noteProjectImageUrl ? 
+                <img
+                  css={s.noteProjectImg}
+                  src={`${IMG_PATH}/${note.noteProjectImageUrl}`}
+                  alt={note.noteProjectImageUrl}
+                />
+              :
+                <CiImageOff size={35} color="gray"/>
+              }
             </div>
             <div css={s.noteProjectTitleDiv}>
               <div css={s.titleUpdateDiv}>

@@ -11,7 +11,7 @@ export const informationModalContianer = css`
   right: 10px;
   top: 5vh;
   z-index: 10;
-  border-top: 2px solid #919191ff;
+  border-top: 1px solid #919191ff;
   padding: 15px 35px;
   box-sizing: border-box;
   box-shadow: 2px 2px 5px 0.01px #e2e2e2ff;
@@ -28,10 +28,10 @@ export const informationModalinfoDiv = css`
   margin-bottom: 10px;
 `
 export const informationModalNickNameSpan = css`
-  font-size: 12px;
+  font-size: 11.5px;
 ` 
 export const informationModalEmailSpan = css`
-  font-size: 7px;
+  font-size: 9px;
   padding-left: 2px;
 ` 
 export const informationModalBtnDiv = css`
@@ -43,19 +43,29 @@ export const informationModalBtn = css`
   border: none;
   color: red;
   font-size: 10px;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
+  :hover {
+    cursor: pointer;
+  }
 ` 
 export const informationModalMypageBtn = css`
   border: none;
   font-size: 10px;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
+  :hover {
+    cursor: pointer;
+  }
 ` 
 export const informationModlaImgDiv = css`
-  border: 2px solid #eee;
+  border: 2px solid #969696;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+`
+export const infoImg = css`
+  width: 110%;
 `

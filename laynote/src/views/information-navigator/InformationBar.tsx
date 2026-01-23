@@ -7,8 +7,9 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types";
 import axios from "axios";
-import { MAIN_APT_PATH, USER_INFO, USER_PATH } from "../../apis/apis";
+import { IMG_PATH, MAIN_APT_PATH, USER_INFO, USER_PATH } from "../../apis/apis";
 import InformationModal from "./InformationModal";
+import { CiUser } from "react-icons/ci";
 
 
 function InformationBar() {
@@ -41,13 +42,6 @@ function InformationBar() {
     }
   }, [cookies.token, logout]);
 
-  const handleLougoutClick = () => {
-    setCookies("token", "", { expires: new Date() });
-    removeCookie("token", { path: "/" });
-    logout();
-    navigate("/");
-  };
-
   return (
     <div css={s.divBackground}>
       <div css={s.imformationContainer}>
@@ -66,7 +60,11 @@ function InformationBar() {
         {isAuthenticated ? (
           <div css={s.topInfoDiv}>
             <div css={s.topInfoImageDiv}>
-              <img css={s.topInfoImage} src={data?.profileImageUrl} alt="이미지" />
+              {data?.profileImageUrl ? 
+                <img css={s.topInfoImage} src={`${IMG_PATH}/${data?.profileImageUrl}`} alt="이미지" />
+                :
+                <CiUser />
+              }
             </div>
             <div css={s.topInfoNickDiv}>
               <span css={s.topInfoNickSpan}>{data?.nickName}</span>
