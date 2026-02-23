@@ -4,12 +4,13 @@ import * as s from "./informationBarStyle";
 import { IoSettingsOutline } from "react-icons/io5";
 import userAuthStore from "../../stores/user.store";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import { User } from "../../types";
 import axios from "axios";
 import { IMG_PATH, MAIN_APT_PATH, USER_INFO, USER_PATH } from "../../apis/apis";
 import InformationModal from "./InformationModal";
 import { CiUser } from "react-icons/ci";
+import JoinUserBar from "./JoinUserBar";
 
 
 function InformationBar() {
@@ -17,6 +18,7 @@ function InformationBar() {
   const [cookies, setCookies, removeCookie] = useCookies(["token"]);
   const [data, setData] = useState<User|null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
+  const projectId = useMatch("/note/:noteProjectId");
   const navigate = useNavigate();
 
   const fetchData = async() => {
@@ -58,6 +60,10 @@ function InformationBar() {
           />
         </div>
         {isAuthenticated ? (
+          <>
+          { projectId &&
+            <JoinUserBar />
+          }
           <div css={s.topInfoDiv}>
             <div css={s.topInfoImageDiv}>
               {data?.profileImageUrl ? 
@@ -73,6 +79,7 @@ function InformationBar() {
               <IoSettingsOutline css={s.ioSettingsOutline} />
             </div>
           </div>
+          </>
         ) : (
           <div css={s.noAuthTopInfoDiv}>
             <span>생각 정리 노트.</span>

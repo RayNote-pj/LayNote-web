@@ -18,7 +18,8 @@ function Login() {
     password: "",
   });
   const [, setCookies] = useCookies(["token"]);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorEmailMessage, setErrorEmailMessage] = useState<string | null>(null);
+  const [errorPasswordMessage, setErrorPasswordMessage] = useState<string | null>(null);
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,30 +29,40 @@ function Login() {
     }));
   };
 
-  const fetchData = async (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
-  ) => {
-    if (e instanceof KeyboardEvent && e.key !== "Enter") return;
-    e.preventDefault();
-    if (!loginForm.userEmail.trim() || !emailRegex.test(loginForm.userEmail)) {
-      setErrorMessage("형식에 맞이 않는 이메일주소.");
-      return;
-    }
-    if (!loginForm.password.trim() || !passwordRegex.test(loginForm.password)) {
-      setErrorMessage("영문, 숫자, 특수기호 포함. 8~16자");
-      return;
-    }
+  const onKeyDownEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === "Enter") {
+    fetchData();
+  }
+};
+
+
+  const fetchData = async () => {
+      let hasError = false;
+
+  if (!loginForm.userEmail.trim() || !emailRegex.test(loginForm.userEmail)) {
+    setErrorEmailMessage("형식에 맞지 않는 이메일주소.");
+    hasError = true;
+  } else {
+    setErrorEmailMessage(null);
+  }
+
+  if (!loginForm.password.trim() || !passwordRegex.test(loginForm.password)) {
+    setErrorPasswordMessage("영문, 숫자, 특수기호 포함. 8~16자");
+    hasError = true;
+  } else {
+    setErrorPasswordMessage(null);
+  }
+
+  if (hasError) return;
 
     try {
       const response = await axios.post(`${MAIN_APT_PATH}${AUTH_PATH}${LOGIN}`, loginForm);
-      setErrorMessage(null);
+      setErrorEmailMessage(null);
+      setErrorPasswordMessage(null);
       logInSuccessResponse(response.data.data);
       navigate("/");
       alert("로그인 성공");
     } catch (error) {
-      setErrorMessage("❌ 아이디 혹은 비밀번호가 잘못되었습니다.");
       console.error(error);
     }
   };
@@ -92,19 +103,20 @@ function Login() {
           <div css={s.loginFeildInputContainer}>
             <div css={s.loginFeildDiv}>
               <label htmlFor="userEmail" css={s.loginFeildSpan}>
-                Email adress
+                Email.  {errorEmailMessage}
               </label>
               <input
                 css={s.loginFeildInput}
-                type="text"
+                type="email"
                 onChange={changeInput}
                 name="userEmail"
                 value={loginForm.userEmail}
+                onKeyDown={onKeyDownEnter}
               />
             </div>
             <div css={s.loginFeildDiv}>
               <label htmlFor="password" css={s.loginFeildSpan}>
-                Password
+                Password. <span>{errorPasswordMessage}</span> 
               </label>
               <input
                 css={s.loginFeildInput}
@@ -112,6 +124,7 @@ function Login() {
                 onChange={changeInput}
                 name="password"
                 value={loginForm.password}
+                onKeyDown={onKeyDownEnter}
               />
               <div css={s.loginFindBtn}>
                 <span>아이디 찾기</span>
@@ -123,7 +136,6 @@ function Login() {
           <button
             type="submit"
             onClick={fetchData}
-            onKeyDown={fetchData}
             css={s.loginBtn}
           >
             Login

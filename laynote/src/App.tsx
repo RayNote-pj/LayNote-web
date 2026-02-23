@@ -17,6 +17,11 @@ import TrashNote from "./views/trash/TrashNote";
 import MyPage from "./views/my-page/UserInfoPage";
 import NoteProjectDetail from "./views/note-project/NoteProjectDetail";
 import SidebarSwitcher from "./views/bars/SidebarSwitcher";
+import RequireAuth from "./public-only/RequireAuth";
+import PublicOnly from "./public-only/PublicOnly";
+import HomeRouter from "./home-router/HomeRouter";
+import DeleteAcount from "./views/delete-acount/DeleteAcount";
+import NoteProjectDetailORJoIn from "./views/note-project/NoteProjectDetailORJoIn";
 
 function App() {
   interface TokenUser {
@@ -26,47 +31,94 @@ function App() {
   const {isAuthenticated } = userAuthStore();
   const { login, logout } = userAuthStore();
 
-  useEffect(() => {
-    if (cookies.token) {
-      try {
-        const decodeToken: TokenUser = jwtDecode<TokenUser>(cookies.token);
-        login(decodeToken.userEmail);
-      } catch (e) {
-        console.error("Invalid Token",e);
-        logout();
-      }
-    } else {
+useEffect(() => {
+  if (cookies.token) {
+    try {
+      const decodeToken = jwtDecode<TokenUser>(cookies.token);
+      login(decodeToken.userEmail);
+    } catch {
       logout();
     }
-  }, [cookies.token, login, logout]);
+  } else {
+    logout();
+  }
+}, [cookies.token]);
+
+useEffect(() => {
+  userAuthStore.getState().restoreAuth();
+}, []);
+
 
   return (
-      <RootLayout>
-        <InformationBar />
-        <RootContainer>
-            {isAuthenticated ? 
-            <>
-              <SidebarSwitcher />
-              <MainContainer>
-                <Routes>
-                  <Route path="/" element={<NoteProjectList/>} />
-                  <Route path="/trash" element={<TrashNote/>} />
-                  <Route path="/my-page" element={<MyPage/>} />
-                  <Route path="/note/:noteProjectId" element={<NoteProjectDetail/>}/>
-                </Routes>
-              </MainContainer>
-            </>
-            :
-            <MainContainer>
-                <Routes>
-                  <Route path="/" element={<WelcomePage/>} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/sign-up" element={<SignUp />} />
-                </Routes>
-            </MainContainer>
-            }
-        </RootContainer>
-      </RootLayout>
+    <RootLayout>
+      <InformationBar />
+      <RootContainer>
+        <SidebarSwitcher />
+
+        <MainContainer>
+          <Routes>
+            {/* 홈 */}
+            <Route path="/" element={<HomeRouter />} />
+
+            {/* public */}
+            <Route
+              path="/login"
+              element={
+                <PublicOnly>
+                  <Login />
+                </PublicOnly>
+              }
+            />
+
+            <Route
+              path="/sign-up"
+              element={
+                <PublicOnly>
+                  <SignUp />
+                </PublicOnly>
+              }
+            />
+
+            {/* auth required */}
+            <Route
+              path="/note/:noteProjectId"
+              element={
+                <RequireAuth>
+                  <NoteProjectDetailORJoIn />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/trash"
+              element={
+                <RequireAuth>
+                  <TrashNote />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/my-page"
+              element={
+                <RequireAuth>
+                  <MyPage />
+                </RequireAuth>
+              }
+            />
+            
+            <Route
+              path="/my-page/delete-acount"
+              element={
+                <RequireAuth>
+                  <DeleteAcount />
+                </RequireAuth>
+              }
+            />
+          </Routes>
+        </MainContainer>
+      </RootContainer>
+    </RootLayout>
   );
 }
 

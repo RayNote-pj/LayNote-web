@@ -13,11 +13,12 @@ import {
 } from "../../apis/apis";
 import { useCookies } from "react-cookie";
 import { IoIosClose, IoMdReturnLeft } from "react-icons/io";
-import { AiOutlineRollback } from "react-icons/ai";
+import { useNoteProjectPintStore } from "../../stores/noteProjectPin.store";
 
 function TrashNote() {
   const [cookies] = useCookies(["token"]);
   const [noteDatas, setNoteDatas] = useState<NoteProjectDto[]>([]);
+  const { fetchPins } = useNoteProjectPintStore();
 
   const getFactData = async () => {
     try {
@@ -69,6 +70,7 @@ function TrashNote() {
         }
       );
       getFactData();
+      fetchPins(cookies.token);
     } catch (error) {
       console.error(error);
     }
