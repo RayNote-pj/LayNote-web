@@ -7,7 +7,5 @@ export const workSpaceBackground = css`
   background-image: radial-gradient(#ccc 1.3px, transparent 1.3px);
   background-size: 20px 20px;
   position: relative;
-  min-width: 3000px;
-  min-height: 2000px;
-  overflow: auto;
+  overflow: scroll;
 `;

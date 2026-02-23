@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const barBackground = css`
-  width: 70px;
+  width: 100px;
   overflow: hidden;
   height: 100%;  
   display: flex;
@@ -9,6 +9,8 @@ export const barBackground = css`
   justify-content: space-between;
   align-items: center;
   border-right: 2px solid #cccccc;
+  padding: 20px 0px;
+  box-sizing: border-box;
 `
 export const barDiv = css`
   display: flex;
@@ -17,35 +19,34 @@ export const barDiv = css`
   width: 100%;
 `
 export const createNoteBtnDiv = css`
-  height: 50px;
   display: flex;
   flex-direction: column;
-  margin: 10px;
 `
 export const noteProjectBarLine = css`
   width: 300px;
   border: 1px solid #ccc;
+  margin: 15px 0px;
 `
 export const createNoteBtn = css`
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border: 2px solid #9c9c9c;
   border-radius: 3px;
-  font-size: 30px;
+  font-size: 45px;
   box-sizing: border-box;
   background-color: #fff;
 `
 export const createNoteBtnSpan = css`
   font-family: 'YesMyungjo';
-  font-size: 10px;
+  font-size: 15px;
   text-align: center;
 `
 export const bookMarkSpan = css`
-  font-size: 11px;
+  font-size: 13px;
   font-family: 'YesMyungjo';
   font-weight: 700;
   text-align: center;
@@ -53,23 +54,35 @@ export const bookMarkSpan = css`
 `
 export const likeNoteDiv = css`
   width: 100%;
-  margin-top: 2px;
   padding: 2px 3px;
   box-sizing: border-box;
 `
 export const likeNotListeDiv = css`
-  width: 95%;
+  margin: 10px 0px;
+  height: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-bottom: 0.5px solid #707070;
+::-webkit-scrollbar {
+  display: none;
+}
 `
 export const likeNoteColumnDiv = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
+  width: 90px;
   margin-top: 15px;
+  transition: transform 0.3s ease;
+  :hover {
+    cursor: pointer;
+    transform: scale(1.4);
+  }
 `
 export const likeNoteThumNail = css`
   width: 100%;
@@ -87,18 +100,20 @@ export const likeNoteThumNailDiv = css`
 `
 export const likeNoteTitleDiv = css`
   margin: 0px auto;
-  width: 70px;
+  width: 60px;
   padding: 0px 1px;
   box-sizing: border-box;
+  font-size: 11px;
   text-align: center;
 `
 export const likeNoteTitleSpan = css`
-  font-size: 10px;
+  font-size: 13px;
+  width: 100%;
 `
 export const trashBtnDiv = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
-  margin-bottom: 25px;
+  font-size: 35px;
+  margin-bottom: 30px;
 `

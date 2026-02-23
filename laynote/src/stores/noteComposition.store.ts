@@ -40,13 +40,13 @@ export const useCompositionStore = create<NoteCompositionStore>((set) => ({
   noteBoxCreate: async (token, noteProjectId) => {
     set({ isLoading: true, error: null });
     try {
-      const res = await axios.post(`${MAIN_APT_PATH}${NOTE_BOX_PATH}/${noteProjectId}${NOTE_BOX_POST}`, {}
+      await axios.post(`${MAIN_APT_PATH}${NOTE_BOX_PATH}/${noteProjectId}${NOTE_BOX_POST}`, {}
         , {
           headers: { Authorization: `Bearer ${token}`},
           withCredentials:true,
         }
       );
-      set({ items: res.data.data});
+      await useCompositionStore.getState().fetchNotes(token, noteProjectId);
     } catch (e) {
       console.error(e)
       set({ error: "노트 박스 생성 실패"});
@@ -58,12 +58,12 @@ export const useCompositionStore = create<NoteCompositionStore>((set) => ({
   noteListCreate: async (token, noteProjectId) => {
     set({isLoading: true, error:null});
     try {
-      const res = await axios.post(`${MAIN_APT_PATH}${NOTE_LIST_PATH}/${noteProjectId}${NOTE_LIST_CREATE}`, {},
+      await axios.post(`${MAIN_APT_PATH}${NOTE_LIST_PATH}/${noteProjectId}${NOTE_LIST_CREATE}`, {},
         {
           headers: { Authorization: `Bearer ${token}`}, withCredentials: true,
         }
       );
-      set({ items: res.data.data});
+      await useCompositionStore.getState().fetchNotes(token, noteProjectId);
     } catch (e) {
       console.error(e)
       set({ error: "노트 목록 생성 실패"});
@@ -75,12 +75,12 @@ export const useCompositionStore = create<NoteCompositionStore>((set) => ({
   noteImgBoxCreate: async (token, noteProjectId) => {
     set({isLoading: true, error: null});
     try {
-      const res = await axios.post(`${MAIN_APT_PATH}${NOTE_IMAGE_BOX_LIST_PATH}/${noteProjectId}${NOTE_IMG_BOX_CREATE}`, {}, 
+      await axios.post(`${MAIN_APT_PATH}${NOTE_IMAGE_BOX_LIST_PATH}/${noteProjectId}${NOTE_IMG_BOX_CREATE}`, {}, 
         {headers: {Authorization: `Bearer ${token}`},
         withCredentials: true,
       }
       );
-      set({items: res.data.data});
+      await useCompositionStore.getState().fetchNotes(token, noteProjectId);
     } catch (e) {
       console.error(e);
       set({error: "노트 이미지 박스 생성"})

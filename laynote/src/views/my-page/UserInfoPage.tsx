@@ -201,7 +201,7 @@ function UserInfoPage() {
               UPDATE
             </button>
           </div>
-          <button css={s.deleteAcoutnBtn}>Delete Acount</button>
+          <button css={s.deleteAcoutnBtn} onClick={() => navigate(`/my-page/delete-acount`)}>Delete Acount</button>
         </div>
       </div>
     </div>

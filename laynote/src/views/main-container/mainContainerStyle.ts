@@ -6,6 +6,7 @@ export const mainContainerBackground = css`
   min-height: 0; 
     flex: 1;         
   background-color: white;
-  overflow-y: auto;     
-  overflow-x: hidden;
+  overflow: auto;
+  position: relative;
+  width: 100vw;
 `

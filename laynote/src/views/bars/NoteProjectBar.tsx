@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useNoteProjectStore } from "../../stores/noteProject.store";
 import { useNoteProjectPintStore } from "../../stores/noteProjectPin.store";
 import { IMG_PATH } from "../../apis/apis";
-import { CiImageOff, CiUser } from "react-icons/ci";
+import { CiImageOff } from "react-icons/ci";
 
 function NoteProjectBar() {
   const [cookies] = useCookies(["token"]);
@@ -42,32 +42,33 @@ function NoteProjectBar() {
           <span css={s.bookMarkSpan}>Book Mark_</span>
           <div css={s.likeNotListeDiv}>
             {pins.map((pin) => (
-              <div css={s.likeNoteColumnDiv} key={pin.pinId}>
+              <div
+                css={s.likeNoteColumnDiv}
+                key={pin.pinId}
+                onClick={() => navigate(`/note/${pin.noteProjectId}`)}
+              >
                 <div css={s.likeNoteThumNailDiv}>
-                  {pin.noteProjectImageUrl
-                    ? 
+                  {pin.noteProjectImageUrl ? (
                     <img
                       css={s.likeNoteThumNail}
                       src={`${IMG_PATH}/${pin.noteProjectImageUrl}`}
                       alt="썸네일"
                     />
-                    :
-                    <CiImageOff size={18} color="gray"/>
-                    }
+                  ) : (
+                    <CiImageOff size={18} color="gray" />
+                  )}
                 </div>
                 <div css={s.likeNoteTitleDiv}>
-                  <span css={s.likeNoteTitleSpan}>
-                    ${pin.noteProjectTitle}
-                  </span>
+                  {pin.noteProjectTitle}
                 </div>
               </div>
             ))}
           </div>
         </div>
-        </div>
-        <div css={s.trashBtnDiv}>
-          <VscTrash onClick={() => navigate("/trash")} />
-        </div>
+      </div>
+      <div css={s.trashBtnDiv}>
+        <VscTrash onClick={() => navigate("/trash")} />
+      </div>
     </div>
   );
 }

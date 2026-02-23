@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 export const noteProjectBackground = css`
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 `
 export const ioIosClose = css`
   transition: transform 0.2s ease-in-out;
@@ -31,14 +30,14 @@ export const notePageTitleSpan = css`
   font-weight: 700;
 `
 export const noteProjectContainer = css`
-  width: 1291px;
+  width: 1410px;
   display: flex;
   flex-wrap: wrap;
   margin: 60px auto;
   `
 export const noteProjectDiv = css`
-  width: 240px;
-  height: 245px;
+  width: 270px;
+  height: 300px;
   border-radius: 10px;
   border: 1px solid #c0c0c0;
   display: flex;
@@ -48,7 +47,7 @@ export const noteProjectDiv = css`
 `
 export const noteProjectImgDiv = css`
   width: 100%;
-  height: 65%;
+  height: 62%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +73,7 @@ export const noteProjectTitleDiv = css`
   `
 export const noteProjectTitleInput = css`
   font-family: 'YesMyungjo';
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   width: 77%;
   border: none;

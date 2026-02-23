@@ -11,3 +11,7 @@ export interface User {
   joinPath: string;
 }
 
+export type UserRole =  'OWNER' | 'MEMBER' | 'GUEST';
+
+export type JoinStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+

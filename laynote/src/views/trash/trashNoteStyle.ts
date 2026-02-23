@@ -3,13 +3,12 @@ import { css } from "@emotion/react";
 export const noteProjectBackground = css`
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 `
 export const notePageTitleDiv = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 108px;
+  height: 218px;
 `
 export const notePageTitleLine = css`
   width: 270px;
@@ -30,30 +29,33 @@ export const notePageTitleSpan = css`
   font-weight: 700;
 `
 export const noteProjectContainer = css`
-  width: 1130px;
+  width: 1530px;
   display: flex;
   flex-wrap: wrap;
   margin: 60px auto;
   /* border: 1px solid #333; */
   `
 export const noteProjectDiv = css`
-  width: 240px;
-  height: 245px;
+  width: 300px;
+  height: 345px;
   border-radius: 10px;
   border: 1px solid #c0c0c0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: 20px;
+  margin: 40px;
 `
 export const noteProjectImgDiv = css`
   width: 100%;
-  height: 122px;
+  height: 62%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #eee;
   overflow: hidden;
+  :hover {
+    cursor: pointer;
+  }
 `
 export const noteProjectImg = css`
   width: 100%;

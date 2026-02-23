@@ -14,7 +14,7 @@ import {
   NOTE_PROJECT_UPDATE_IMAGE,
   NOTE_PROJECT_UPDATE_TITLE,
 } from "../../apis/apis";
-import { CiImageOff, CiImageOn, CiUser } from "react-icons/ci";
+import { CiImageOff, CiImageOn } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -28,13 +28,15 @@ function NoteProjectList() {
   const { notes, fetchNotes } = useNoteProjectStore();
   const { pins, fetchPins } = useNoteProjectPintStore();
   const [updateComplete, setUpdateComplete] = useState<string | null>(null);
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>(""); 
+  
   const navigate = useNavigate();
 
   const isPinned = (noteProjectId: string) => {
     return pins.some((pin) => pin.noteProjectId === noteProjectId);
   };
-  const updateTitleFetchData = async (noteProjectId: string) => {
+  const updateTitleFetchData = async (noteProjectId: string, newTitle: string) => {
+    if (!newTitle.trim()) return;
     try {
       await axios.put(
         `${MAIN_APT_PATH}${NOTE_PROJECT_PATH}/${noteProjectId}${NOTE_PROJECT_UPDATE_TITLE}`,
@@ -46,6 +48,7 @@ function NoteProjectList() {
           withCredentials: true,
         }
       );
+      fetchPins(cookies.token);
     } catch (error) {
       console.error(error);
     }
@@ -109,6 +112,7 @@ function NoteProjectList() {
         }
       );
       fetchNotes(cookies.token);
+      fetchPins(cookies.token);
     } catch (error) {
       console.error(error);
     }
@@ -129,6 +133,7 @@ function NoteProjectList() {
         }
       );
       fetchNotes(cookies.token);
+      fetchPins(cookies.token);
     } catch (error) {
       console.error(error);
     }
@@ -136,12 +141,20 @@ function NoteProjectList() {
 
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    noteProjectId: string
+    noteProjectId: string,
+    noteProjectTitle: string
   ) => {
     if (e.key !== "Enter") return;
+    const trimmedTitle = title.trim();
+
+    if (!trimmedTitle) {
+      alert("제목은 비워둘 수 없습니다.");
+      e.currentTarget.value = title;
+      return;
+    }
 
     e.preventDefault();
-    updateTitleFetchData(noteProjectId);
+    updateTitleFetchData(noteProjectId, noteProjectTitle);
 
     setUpdateComplete(noteProjectId);
     setTimeout(() => {
@@ -195,7 +208,7 @@ function NoteProjectList() {
                   alt={note.noteProjectImageUrl}
                 />
               :
-                <CiImageOff size={35} color="gray"/>
+                <CiImageOff css={s.noteProjectImg} size={55} color="gray"/>
               }
             </div>
             <div css={s.noteProjectTitleDiv}>
@@ -205,7 +218,7 @@ function NoteProjectList() {
                   name="noteProjectTitle"
                   css={s.noteProjectTitleInput}
                   onChange={inputHandler}
-                  onKeyDown={(e) => handleKeyDown(e, note.noteProjectId)}
+                  onKeyDown={(e) => handleKeyDown(e, note.noteProjectId, note.noteProjectTitle)}
                   defaultValue={note.noteProjectTitle}
                 />
                 {updateComplete === note.noteProjectId && (

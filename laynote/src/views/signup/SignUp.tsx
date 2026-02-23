@@ -68,14 +68,9 @@ function SignUp() {
   };
 
   const fetchData = async() => {
-    if (loading) {
-      console.log("로딩중....");
-    }
     setLoading(true);
-    
     try {
-      console.log("로딩중...");
-      const response = await axios.post(
+      await axios.post(
         `${MAIN_APT_PATH}${AUTH_PATH}${SIGN_UP}`,
         {
           ...signUpData

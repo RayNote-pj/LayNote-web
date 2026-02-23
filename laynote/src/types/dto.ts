@@ -1,4 +1,4 @@
-import { User } from ".";
+import { User, UserRole } from ".";
 
 export interface LoginRequestdto {
   userEmail: string;
@@ -68,9 +68,6 @@ export interface NoteProjectReqestDto {
 }
 export interface NoteComposition {
   noteCompositionId: string;
-  noteComponentId: number;
-  compositionWidth: number;
-  compositionHeight: number;
   compositionX: number;
   compositionY: number;
   compositionZ: number;
@@ -107,7 +104,7 @@ export interface NoteImageBoxDto {
 export interface NoteListDto {
   noteListId: number;
   noteListTitle: string;
-  noteListItems: NoteListItemDto[];
+  noteListItemDto: NoteListItemDto[];
 }
 export interface NoteListItemDto {
   noteListItemId: number;
@@ -134,8 +131,18 @@ export interface PinDto {
 
 export interface NoteBoxUpdateRequestDto {
   noteBoxTitle: string;
-  noteBoxCentent: string;
-  imageUrl: string;
+  noteBoxContent: string;
 } 
 
+export interface NoteProjectMemberDto {
+  userEmail: string;
+  userRole: UserRole;
+  noteProjectId: number;
+}
 
+export interface NoteProjectJoin {
+  userEmail: string;
+  joinStatus: JoinStatus;
+}
+
+export type JoinStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
